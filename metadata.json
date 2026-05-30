@@ -1,0 +1,6 @@
+{
+  "name": "Wali Tahfiz",
+  "description": "A premium, off-line first toddler Quran memorization companion & Spaced Repetition Parent dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,153 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global safety net (Default Deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Reusable, hardened helper primitives
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // O(1) optimized helper to verify if the user belongs to the group
+    function isMemberOfGroup(groupId) {
+      return isSignedIn() && (
+        groupId == 'group_' + request.auth.uid ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.groupIds.hasAny([groupId])
+      );
+    }
+
+    // 3. Entity Schema Guard for legacy Wali (prevents arbitrary field injection)
+    function isValidWali(data) {
+      return data.keys().hasAll(['waliId', 'streak', 'students']) 
+             && data.keys().size() == 3
+             && data.waliId is string
+             && data.waliId.size() <= 128
+             && data.streak is int
+             && data.students is map;
+    }
+
+    // 4. Entity Schema Guard for Students (prevents Ghost Field Poisoning & type spoofing)
+    function isValidStudent(data) {
+      // Must have required identity keys
+      return data.keys().hasAll(['id', 'name', 'groupId'])
+             // id must be a valid non-empty string under 128 chars
+             && data.id is string
+             && data.id.size() > 0
+             && data.id.size() <= 128
+             // name must be a reasonable string
+             && data.name is string
+             && data.name.size() > 0
+             && data.name.size() <= 128
+             // groupId must be a valid group reference
+             && data.groupId is string
+             && data.groupId.size() > 0
+             // No privilege escalation fields allowed
+             && !data.keys().hasAny(['isAdmin', 'role', 'permissions', 'uid'])
+             // streak must be an integer if present
+             && (!data.keys().hasAny(['streak']) || data.streak is int)
+             // completedSessions must be an integer if present
+             && (!data.keys().hasAny(['completedSessions']) || data.completedSessions is int)
+             // streakShields must be a non-negative integer if present
+             && (!data.keys().hasAny(['streakShields']) || (data.streakShields is int && data.streakShields >= 0));
+    }
+
+    // Legacy Wali collection matching
+    match /walis/{waliId} {
+      allow read: if isValidId(waliId);
+      
+      allow create: if isValidId(waliId) 
+                   && isValidWali(incoming())
+                   && incoming().waliId == waliId;
+
+      allow update: if isValidId(waliId)
+                   && isValidWali(incoming())
+                   && incoming().waliId == existing().waliId;
+
+      allow delete: if false;
+    }
+
+    // --- Modern Group-based real-time synchronization rules ---
+
+    // Users collection matching
+    match /users/{userId} {
+      allow get: if isSignedIn();
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && userId == request.auth.uid;
+      allow update: if isSignedIn() && (
+        userId == request.auth.uid ||
+        incoming().diff(existing()).affectedKeys().hasOnly(['groupIds'])
+      );
+    }
+
+    // Groups collection matching
+    match /groups/{groupId} {
+      allow get: if isSignedIn() && (
+        resource.data.creator == request.auth.uid || 
+        resource.data.members[request.auth.uid] != null
+      );
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && incoming().creator == request.auth.uid && incoming().id == groupId;
+      allow update: if isSignedIn() && (
+        existing().creator == request.auth.uid ||
+        existing().members[request.auth.uid] != null ||
+        (
+          incoming().diff(existing()).affectedKeys().hasOnly(['members']) &&
+          incoming().members.keys().hasAll(existing().members.keys()) &&
+          incoming().members[request.auth.uid] != null &&
+          incoming().members[request.auth.uid].email == request.auth.token.email
+        )
+      );
+    }
+
+    // Students collection matching — schema guard added to prevent Ghost Field Poisoning
+    match /students/{studentId} {
+      allow read: if isMemberOfGroup(resource.data.groupId);
+      allow create: if isMemberOfGroup(incoming().groupId)
+                   && isValidStudent(incoming());
+      allow update: if isMemberOfGroup(existing().groupId)
+                   && incoming().groupId == existing().groupId
+                   && isValidStudent(incoming());
+      allow delete: if isMemberOfGroup(existing().groupId);
+    }
+
+    // Children collection matching — locked to group membership to prevent cross-household access
+    match /children/{childId} {
+      allow read: if isValidId(childId) && isMemberOfGroup(resource.data.groupId);
+      allow create: if isValidId(childId)
+                   && isMemberOfGroup(incoming().groupId)
+                   && isValidStudent(incoming());
+      allow update: if isValidId(childId)
+                   && isMemberOfGroup(existing().groupId)
+                   && incoming().groupId == existing().groupId
+                   && isValidStudent(incoming());
+      allow delete: if isMemberOfGroup(existing().groupId);
+    }
+
+    // Daily logs collection matching — locked to group membership to prevent cross-household access
+    match /daily_logs/{logId} {
+      allow read: if isSignedIn() && isMemberOfGroup(resource.data.groupId);
+      allow create: if isSignedIn()
+                   && incoming().keys().hasAll(['groupId', 'studentId', 'date'])
+                   && isMemberOfGroup(incoming().groupId)
+                   && incoming().date is string
+                   && incoming().studentId is string;
+      allow update: if false; // logs are immutable once written
+      allow delete: if false; // logs are permanent audit records
+    }
+  }
+}

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Beautiful Warm Tropical Mint-to-Emerald Canvas Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E6F4EA" />
+      <stop offset="50%" stop-color="#A7F3D0" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    
+    <!-- Warm Sunny Honey Glow Gradient -->
+    <linearGradient id="sunGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+
+    <!-- Warm Oak Wood Wood Leg Gradient -->
+    <linearGradient id="woodGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78350F" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+
+    <!-- Glowing Dew Drop / Pearl Gradient -->
+    <radialGradient id="dewDropGrad" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FFE4E6" />
+      <stop offset="60%" stop-color="#FB7185" />
+      <stop offset="100%" stop-color="#E11D48" />
+    </radialGradient>
+  </defs>
+
+  <!-- Complete backdrop fill without roundness (Maskable requirement) -->
+  <rect width="512" height="512" fill="url(#bgGrad)" />
+
+  <!-- Scale slightly down (0.85) to ensure all central assets sit comfortably inside standard safe lines -->
+  <g transform="translate(38, 38) scale(0.85)">
+    <!-- Cozy Inner Backplate Sun / Halo Glow -->
+    <circle cx="256" cy="240" r="160" fill="url(#sunGlow)" opacity="0.25" filter="blur-[8px]" />
+    <circle cx="256" cy="240" r="130" fill="white" opacity="0.15" />
+
+    <!-- Sparkly Forest Bubbles & Stars (Aesthetic details celebrating kids' growth) -->
+    <circle cx="120" cy="150" r="8" fill="#FCD34D" />
+    <circle cx="390" cy="180" r="12" fill="#34D399" opacity="0.6" />
+    <circle cx="160" cy="380" r="10" fill="white" opacity="0.5" />
+    <path d="M380 110 L385 120 L395 122 L387 130 L390 140 L380 134 L370 140 L373 130 L365 122 L375 120 Z" fill="#FBBF24" />
+    <path d="M110 260 L113 266 L120 267 L115 272 L117 278 L110 274 L103 278 L105 272 L100 267 L107 266 Z" fill="white" opacity="0.7" />
+
+    <!-- The Open Rehal (Oak wood book rest) support legs -->
+    <path d="M160 350 L190 390 L322 390 L352 350 Z" fill="url(#woodGrad)" />
+    <path d="M190 390 L256 410 L322 390 L256 370 Z" fill="#451A03" />
+
+    <!-- Quran Book Pages (Thick, warm curved, friendly pages) -->
+    <!-- Left Page Stack Shadow -->
+    <path d="M125 334 C185 334, 235 304, 256 314 C277 304, 327 334, 387 334 L377 254 C317 254, 277 224, 256 234 C235 224, 185 254, 125 254 Z" fill="#94A3B8" opacity="0.4" />
+    <!-- Crisp Top Pages -->
+    <path d="M120 330 C180 330, 238 298, 256 308 C274 298, 332 330, 392 330 L382 250 C322 250, 274 218, 256 228 C238 218, 180 250, 120 250 Z" fill="#FFFFFF" />
+
+    <!-- Redesigned Friendly Leaf Page Guide Lines -->
+    <!-- Right Page Lines -->
+    <line x1="285" y1="264" x2="350" y2="264" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round" />
+    <line x1="285" y1="284" x2="350" y2="284" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round" />
+    <line x1="285" y1="304" x2="335" y2="304" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round" />
+
+    <!-- Left Page Lines -->
+    <line x1="162" y1="264" x2="227" y2="264" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round" />
+    <line x1="162" y1="284" x2="227" y2="284" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round" />
+    <line x1="177" y1="304" x2="227" y2="304" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round" />
+
+    <!-- Tropical Fruit Sprout ( mango seed / Rambutan hybrid) -->
+    <!-- Emerald stem growing beautifully from center rehal fold -->
+    <path d="M256 226 Q250 160, 220 115" stroke="#059669" stroke-width="14" stroke-linecap="round" fill="none" />
+    <path d="M256 226 Q250 160, 220 115" stroke="#34D399" stroke-width="6" stroke-linecap="round" fill="none" />
+
+    <!-- Left Cute Leaf -->
+    <path d="M228 142 C195 125, 180 138, 186 162 C210 166, 222 153, 228 142 Z" fill="#34D399" />
+    <path d="M228 142 C205 130, 192 142, 195 158" stroke="#10B981" stroke-width="2" stroke-linecap="round" fill="none" />
+
+    <!-- Right Cute Leaf -->
+    <path d="M256 182 C285 162, 295 140, 278 132 C255 138, 252 165, 256 182 Z" fill="#10B981" />
+    <path d="M256 182 C275 165, 282 148, 273 140" stroke="#047857" stroke-width="2" stroke-linecap="round" fill="none" />
+
+    <!-- Adorable Red Rambutan/Mango Fruit Bud hanging snugly on the stem -->
+    <circle cx="216" cy="115" r="22" fill="url(#dewDropGrad)" filter="drop-shadow(0px 4px 6px rgba(0,0,0,0.15))" />
+    <circle cx="210" cy="108" r="6" fill="white" opacity="0.8" />
+    
+    <!-- Smiling Eyes on the Fruit to make it exceptionally friendly to toddlers -->
+    <circle cx="208" cy="116" r="2.5" fill="#310e14" />
+    <circle cx="221" cy="116" r="2.5" fill="#310e14" />
+    <path d="M211 123 Q214.5 126, 218 123" stroke="#310e14" stroke-width="2.5" stroke-linecap="round" fill="none" />
+
+    <!-- Little Blossom Flower crown atop the mango seed sprout -->
+    <circle cx="216" cy="90" r="6" fill="#FCD34D" />
+    <circle cx="216" cy="90" r="3" fill="#FFFBEB" />
+  </g>
+</svg>

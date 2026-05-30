@@ -1,0 +1,89 @@
+{
+  "entities": {
+    "Wali": {
+      "title": "Wali Profile and Student Progress Sync Document",
+      "description": "Represents the static parent profile syncing progress and settings of their children.",
+      "type": "object",
+      "properties": {
+        "waliId": {
+          "type": "string",
+          "description": "Unique parent household/group identifier."
+        },
+        "streak": {
+          "type": "integer",
+          "description": "Active consolidated household recitation/study streak."
+        },
+        "students": {
+          "type": "object",
+          "description": "Map of nested children profiles keyed by child ID."
+        }
+      },
+      "required": ["waliId", "streak", "students"]
+    },
+    "Child": {
+      "title": "Child Profile with Adaptive History Document",
+      "description": "Structure tracking individual child adaptive memorization history state metrics.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "memory_history": {
+          "type": "object",
+          "description": "Keys mapped to Surah names, storing current_verse_range, consecutive_stuck_days, retention_score, and next_review_interval."
+        }
+      },
+      "required": ["id", "memory_history"]
+    },
+    "DailyLog": {
+      "title": "Daily Recitation Log Entry",
+      "description": "Chronological history record tracking single day recitation feedback session metrics.",
+      "type": "object",
+      "properties": {
+        "childId": {
+          "type": "string"
+        },
+        "surahName": {
+          "type": "string"
+        },
+        "repetition_count": {
+          "type": "integer"
+        },
+        "from": {
+          "type": "integer"
+        },
+        "to": {
+          "type": "integer"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "date": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "durationMinutes": {
+          "type": "integer"
+        }
+      },
+      "required": ["childId", "surahName", "repetition_count", "from", "to", "timestamp", "date"]
+    }
+  },
+  "firestore": {
+    "/walis/{waliId}": {
+      "schema": "Wali",
+      "description": "Collection of parents/groups that manage multiple kids' profiles in a secure, single-document structure."
+    },
+    "/children/{childId}": {
+      "schema": "Child",
+      "description": "Collection storing adaptive student memory maps dynamically."
+    },
+    "/daily_logs/{logId}": {
+      "schema": "DailyLog",
+      "description": "Chronological record storage schema for logging daily sessions."
+    }
+  }
+}

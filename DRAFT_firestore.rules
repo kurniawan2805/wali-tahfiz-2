@@ -1,0 +1,112 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global safety net (Default Deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Reusable, hardened helper primitives
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // O(1) optimized helper to verify if the user belongs to the group
+    function isMemberOfGroup(groupId) {
+      return isSignedIn() && (
+        groupId == 'group_' + request.auth.uid ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.groupIds.hasAny([groupId])
+      );
+    }
+
+    // 3. Entity Schema Guard for legacy Wali (prevents arbitrary field injection)
+    function isValidWali(data) {
+      return data.keys().hasAll(['waliId', 'streak', 'students']) 
+             && data.keys().size() == 3
+             && data.waliId is string
+             && data.waliId.size() <= 128
+             && data.streak is int
+             && data.students is map;
+    }
+
+    // Legacy Wali collection matching
+    match /walis/{waliId} {
+      allow read: if isValidId(waliId);
+      
+      allow create: if isValidId(waliId) 
+                   && isValidWali(incoming())
+                   && incoming().waliId == waliId;
+
+      allow update: if isValidId(waliId)
+                   && isValidWali(incoming())
+                   && incoming().waliId == existing().waliId;
+
+      allow delete: if false;
+    }
+
+    // --- Modern Group-based real-time synchronization rules ---
+
+    // Users collection matching
+    match /users/{userId} {
+      allow get: if isSignedIn();
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && userId == request.auth.uid;
+      allow update: if isSignedIn() && (
+        userId == request.auth.uid ||
+        incoming().diff(existing()).affectedKeys().hasOnly(['groupIds'])
+      );
+    }
+
+    // Groups collection matching
+    match /groups/{groupId} {
+      allow get: if isSignedIn() && (
+        resource.data.creator == request.auth.uid || 
+        resource.data.members[request.auth.uid] != null
+      );
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && incoming().creator == request.auth.uid && incoming().id == groupId;
+      allow update: if isSignedIn() && (
+        existing().creator == request.auth.uid ||
+        existing().members[request.auth.uid] != null ||
+        (
+          incoming().diff(existing()).affectedKeys().hasOnly(['members']) &&
+          incoming().members.keys().hasAll(existing().members.keys()) &&
+          incoming().members[request.auth.uid] != null &&
+          incoming().members[request.auth.uid].email == request.auth.token.email
+        )
+      );
+    }
+
+    // Students collection matching
+    match /students/{studentId} {
+      allow read: if isMemberOfGroup(resource.data.groupId);
+      allow create: if isMemberOfGroup(incoming().groupId);
+      allow update: if isMemberOfGroup(existing().groupId) && incoming().groupId == existing().groupId;
+      allow delete: if isMemberOfGroup(existing().groupId);
+    }
+
+    // Children collection matching (retained adaptive logs state adapter)
+    match /children/{childId} {
+      allow read: if isSignedIn() && isValidId(childId);
+      allow create, update: if isSignedIn() && isValidId(childId);
+    }
+
+    // Daily logs collection matching
+    match /daily_logs/{logId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+    }
+  }
+}

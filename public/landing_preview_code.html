@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pratinjau Antarmuka PWA Wali Tahfiz - Landing Page Component</title>
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter for UI & Amiri/Tajawal for Arabic -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Amiri:wght@400;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .font-arabic {
+      font-family: 'Amiri', serif;
+    }
+    /* Simple Animation Keyframes for Interactive Waveform */
+    @keyframes jump {
+      0%, 100% { height: 4px; }
+      50% { height: 32px; }
+    }
+    .wave-bar {
+      transition: height 0.15s ease-in-out;
+    }
+    .dancing .wave-bar:nth-child(2n) { animation: jump 0.6s infinite ease-in-out alternate; }
+    .dancing .wave-bar:nth-child(3n) { animation: jump 0.8s infinite  ease-in-out alternate; }
+    .dancing .wave-bar:nth-child(5n) { animation: jump 0.5s infinite  ease-in-out alternate; }
+  </style>
+</head>
+<body class="bg-[#FDFBF7] text-[#3A405A] py-12 px-4 selection:bg-[#48C78E]/20">
+
+  <div class="max-w-5xl mx-auto space-y-10">
+    
+    <!-- Title & Instructions Panel for Copying -->
+    <div class="bg-white border border-[#EBE6D9] p-6 rounded-[24px] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="text-left">
+        <h2 class="text-lg font-black text-[#3A405A] uppercase tracking-wide">📦 KODE INTEGRASI LANDING PAGE</h2>
+        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+          Salin kode HTML & Tailwind di bawah ini dan rekatkan langsung ke struktur landing page statis Anda untuk menampilkan demo interaktif yang sepadan dengan visualisasi aslinya.
+        </p>
+      </div>
+      <div>
+        <button onclick="copyLandingCode()" id="copyBtn" class="bg-[#48C78E] hover:bg-[#3ebe82] text-white text-xs font-black uppercase tracking-wider py-2.5 px-6 rounded-xl border-b-3 border-[#329e6f] hover:translate-y-[1px] hover:border-b-2 active:translate-y-[3px] active:border-b-0 transition-all cursor-pointer">
+          📋 Salin Kode UI
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Preview Sandbox Render -->
+    <div class="border-2 border-dashed border-[#EBE6D9] p-2 md:p-8 rounded-[36px] bg-[#FAF8F5] relative">
+      <span class="absolute top-4 left-4 bg-amber-100 text-amber-800 text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md">LIVE PREVIEW SANDBOX (INTERAKTIF)</span>
+      
+      <!-- MAIN COMPONENT START -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full mt-6">
+        
+        <!-- Left Column: Daftar Aktif Kurikulum Anak (lg:col-span-5) -->
+        <div class="lg:col-span-5 bg-white border border-[#EBE6D9] rounded-[32px] p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <!-- Header Block -->
+            <div class="flex items-center justify-between border-b border-[#F5F3EC] pb-4 mb-4 text-left">
+              <div>
+                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Dashboard Wali PWA</span>
+                <h3 class="text-lg font-black text-[#3A405A] mt-0.5">Said <span class="text-xs font-bold text-slate-400">(4 Thn 4 Bln)</span></h3>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-lg shadow-sm">
+                👶
+              </div>
+            </div>
+
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-3 text-left">🎯 DAFTAR AKTIF KURIKULUM AKTUAL:</p>
+
+            <!-- Curriculums Cards -->
+            <div class="space-y-3 text-left">
+              
+              <!-- Card 1: Ziyadah (Hafalan Baru) -->
+              <div class="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-4 transition-all hover:scale-[1.01]">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-[9px] font-black bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-md uppercase tracking-wide">
+                    🎯 Ziyadah (Hafalan Baru)
+                  </span>
+                  <span class="text-[9px] font-extrabold text-[#48C78E] uppercase tracking-wider">
+                    🟢 Mutqin
+                  </span>
+                </div>
+                <h4 class="text-xs font-black text-[#3A405A]">Q.S Al-A'laa [87]</h4>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 mt-1 font-semibold leading-none">
+                  <span>Ayat 1 - 10 dari 19 Ayat</span>
+                  <span class="text-[9px] font-bold text-slate-500 bg-white border border-slate-200/50 px-1.5 py-0.5 rounded">Hari Ini</span>
+                </div>
+              </div>
+
+              <!-- Card 2: Qarib (Murojaah Dekat) -->
+              <div class="bg-amber-50/30 border border-amber-100 rounded-2xl p-4 transition-all hover:scale-[1.01]">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-[9px] font-black bg-amber-100 text-amber-700 px-2 py-0.5 rounded-md uppercase tracking-wide">
+                    🔄 Qarib (Murojaah Dekat)
+                  </span>
+                  <span class="text-[9px] font-extrabold text-amber-600 uppercase tracking-wider">
+                    🟡 Bagus
+                  </span>
+                </div>
+                <h4 class="text-xs font-black text-[#3A405A]">Q.S Al-Fajr [89]</h4>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 mt-1 font-semibold leading-none">
+                  <span>Ayat 1 - 15 dari 30 Ayat</span>
+                  <span class="text-[9px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded flex items-center gap-0.5">🔥 4/7 Hari</span>
+                </div>
+              </div>
+
+              <!-- Card 3: Sabiq (Murojaah Jauh) -->
+              <div class="bg-[#FAF8F5] border border-slate-200/60 rounded-2xl p-4 transition-all hover:scale-[1.01]">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-[9px] font-black bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md uppercase tracking-wide">
+                    📦 Sabiq (Review Jauh)
+                  </span>
+                  <span class="text-[9px] font-extrabold text-red-500 uppercase tracking-wider">
+                    🔴 Ulangi
+                  </span>
+                </div>
+                <h4 class="text-xs font-black text-[#3A405A]">Q.S Al-Ghasyiyah [88]</h4>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 mt-1 font-semibold leading-none">
+                  <span>Surat Lengkap (26 Ayat)</span>
+                  <span class="text-[9px] font-bold text-slate-400 bg-white border border-slate-100 px-1.5 py-0.5 rounded">Besok</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Bottom Quote Box -->
+          <div class="mt-6 border-t border-dashed border-[#F5F3EC] pt-4 flex items-center gap-3 text-left">
+            <span class="text-xl">⭐️</span>
+            <p class="text-[10px] text-slate-400 leading-relaxed font-semibold">
+              <strong class="text-[#3A405A]">Sistem Repetisi Terkalibrasi:</strong> Wali Tahfiz menjaga agar memori hafalan jangka panjang (long-term memory) anak stabil dengan otomatis merotasi ulasan ulas-ulang harian.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column: Visualisasi Harakat & Tajwid Kinetik (lg:col-span-7) -->
+        <div class="lg:col-span-7 bg-white border border-[#EBE6D9] rounded-[32px] p-6 shadow-sm flex flex-col justify-between text-left">
+          
+          <!-- Waveform Block Header -->
+          <div class="flex items-center justify-between border-b border-[#F5F3EC] pb-4 mb-4">
+            <div>
+              <span class="text-[9px] font-black text-[#48C78E] uppercase tracking-widest block">Fitur Mutakhir</span>
+              <h3 class="text-lg font-black text-[#3A405A] mt-0.5">Visualisasi Harakat & Tajwid Kinetik</h3>
+            </div>
+            <span class="bg-[#48C78E]/10 text-[#48C78E] text-[9.5px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
+              Audio Guided
+            </span>
+          </div>
+
+          <!-- The Quran Verse Typography Display Card -->
+          <div class="bg-[#FAF8F5] border border-[#EBE6D9]/70 rounded-[24px] p-6 text-center space-y-4 mb-6 relative overflow-hidden">
+            <!-- Background Watermark -->
+            <span class="absolute -right-10 -bottom-10 text-[100px] text-[#48C78E]/5 font-arabic select-none pointer-events-none">القرآن</span>
+
+            <div class="flex items-center justify-between text-[9px] text-[#A39E93] font-black uppercase tracking-wider">
+              <span>Q.S Al-A'laa ayat 17</span>
+              <span class="text-[#48C78E]">Tajwid Berwarna Aktif</span>
+            </div>
+
+            <!-- Dynamic Highlight Arabic Script with Tajwid styling -->
+            <h1 class="text-3xl md:text-4xl font-arabic font-bold text-slate-800 leading-loose tracking-wide cursor-pointer py-2">
+              <span class="text-slate-800 hover:text-[#48C78E] transition-colors">وَالْآخِرَةُ</span> 
+              <span class="text-[#EA4335] font-black hover:scale-105 inline-block transition-transform" title="Mad Wajib: Panjang 5 Harakat">خَيْرٌ</span> 
+              <span class="text-[#48C78E] font-black hover:scale-105 inline-block transition-transform" title="Ikhfa Syafawi">وَأَبْقَى</span>ٰ
+            </h1>
+
+            <p class="text-[10px] text-slate-400 font-bold tracking-wide italic">
+              "Sedangkan kehidupan akhirat adalah lebih baik dan lebih kekal."
+            </p>
+          </div>
+
+          <!-- Dynamic Kinetic Audio Wave Simulator Slot -->
+          <div class="border border-[#EBE6D9] p-4 rounded-2xl bg-white space-y-3">
+            <div class="flex items-center justify-between text-[9px] font-black tracking-wider text-slate-400 uppercase">
+              <span>LATIHAN SUARA SAID / AUDIO MINSHAWI</span>
+              <span id="playerState" class="text-amber-600 font-extrabold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span> BERHENTI / PAUSED
+              </span>
+            </div>
+
+            <!-- Kinetic Dancing Waveform simulator -->
+            <div id="waveBox" class="h-10 flex items-center justify-center gap-[3px] bg-[#FAF8F5] rounded-xl px-4 border border-dashed border-[#EBE6D9]">
+              <div class="wave-bar w-[4px] h-3 bg-slate-300 rounded-full"></div>
+              <div class="wave-bar w-[4px] h-5 bg-[#48C78E]/40 rounded-full"></div>
+              <div class="wave-bar w-[4px] h-2 bg-slate-300 rounded-full"></div>
+              <div class="wave-bar w-[4px] h-4 bg-[#48C78E]/60 rounded-full"></div>
+              <div class="wave-bar w-[4px] h-7 bg-[#48C78E] rounded-full"></div>
+              <div class="wave-bar w-[4px] h-3 bg-slate-300 rounded-full"></div>
+              <div class="wave-bar w-[4px] h-8 bg-[#48C78E] rounded-full"></div>
+              <div class="wave-bar w-[4px] h-5 bg-slate-300 rounded-full"></div>
+              <div class="wave-bar w-[4px] h-2 bg-slate-200 rounded-full"></div>
+              <div class="wave-bar w-[4px] h-4 bg-[#48C78E]/40 rounded-full"></div>
+              <div class="wave-bar w-[4px] h-8 bg-slate-300 rounded-full"></div>
+              <div class="wave-bar w-[4px] h-6 bg-[#48C78E] rounded-full"></div>
+              <div class="wave-bar w-[4px] h-2 bg-slate-300 rounded-full"></div>
+            </div>
+
+            <!-- Play & Audio Toggle Trigger Controls -->
+            <button onclick="togglePreviewPlayback()" class="w-full py-2.5 px-4 rounded-xl bg-slate-50 border border-slate-200 text-[#3A405A] hover:bg-slate-100 font-black text-[10px] uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer">
+              <span id="playIcon">▶️</span>
+              <span id="playLabel">Simulasi Suara & Ketukan Tajwid</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- MAIN COMPONENT END -->
+    </div>
+
+    <!-- Hidden Raw Code Area for Copy Container -->
+    <textarea id="rawCodeSource" class="hidden">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full mt-6">
+  <!-- Left Column: Daftar Aktif Kurikulum Anak -->
+  <div class="lg:col-span-5 bg-white border border-[#EBE6D9] rounded-[32px] p-6 shadow-sm flex flex-col justify-between">
+    <div>
+      <div class="flex items-center justify-between border-b border-[#F5F3EC] pb-4 mb-4 text-left">
+        <div>
+          <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Dashboard Wali PWA</span>
+          <h3 class="text-lg font-black text-[#3A405A] mt-0.5">Said <span class="text-xs font-bold text-slate-400">(4 Thn 4 Bln)</span></h3>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-lg shadow-sm">👶</div>
+      </div>
+      <p class="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-3 text-left">🎯 DAFTAR AKTIF KURIKULUM AKTUAL:</p>
+      <div class="space-y-3 text-left">
+        <!-- Card 1: Ziyadah -->
+        <div class="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-4 transition-all hover:scale-[1.01]">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[9px] font-black bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-md uppercase tracking-wide">🎯 Ziyadah (Hafalan Baru)</span>
+            <span class="text-[9px] font-extrabold text-[#48C78E] uppercase tracking-wider">🟢 Mutqin</span>
+          </div>
+          <h4 class="text-xs font-black text-[#3A405A]">Q.S Al-A'laa [87]</h4>
+          <div class="flex items-center justify-between text-[10px] text-slate-400 mt-1 font-semibold leading-none">
+            <span>Ayat 1 - 10 dari 19 Ayat</span>
+            <span class="text-[9px] font-bold text-slate-500 bg-white border border-slate-200/50 px-1.5 py-0.5 rounded">Hari Ini</span>
+          </div>
+        </div>
+        <!-- Card 2: Qarib -->
+        <div class="bg-amber-50/30 border border-amber-100 rounded-2xl p-4 transition-all hover:scale-[1.01]">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[9px] font-black bg-amber-100 text-amber-700 px-2 py-0.5 rounded-md uppercase tracking-wide">🔄 Qarib (Murojaah Dekat)</span>
+            <span class="text-[9px] font-extrabold text-amber-600 uppercase tracking-wider">🟡 Bagus</span>
+          </div>
+          <h4 class="text-xs font-black text-[#3A405A]">Q.S Al-Fajr [89]</h4>
+          <div class="flex items-center justify-between text-[10px] text-slate-400 mt-1 font-semibold leading-none">
+            <span>Ayat 1 - 15 dari 30 Ayat</span>
+            <span class="text-[9px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded flex items-center gap-0.5">🔥 4/7 Hari</span>
+          </div>
+        </div>
+        <!-- Card 3: Sabiq -->
+        <div class="bg-[#FAF8F5] border border-slate-200/60 rounded-2xl p-4 transition-all hover:scale-[1.01]">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[9px] font-black bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md uppercase tracking-wide">📦 Sabiq (Review Jauh)</span>
+            <span class="text-[9px] font-extrabold text-red-500 uppercase tracking-wider">🔴 Ulangi</span>
+          </div>
+          <h4 class="text-xs font-black text-[#3A405A]">Q.S Al-Ghasyiyah [88]</h4>
+          <div class="flex items-center justify-between text-[10px] text-slate-400 mt-1 font-semibold leading-none">
+            <span>Surat Lengkap (26 Ayat)</span>
+            <span class="text-[9px] font-bold text-slate-400 bg-white border border-slate-100 px-1.5 py-0.5 rounded">Besok</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 border-t border-dashed border-[#F5F3EC] pt-4 flex items-center gap-3 text-left">
+      <span class="text-xl">⭐️</span>
+      <p class="text-[10px] text-slate-400 leading-relaxed font-semibold">
+        <strong class="text-[#3A405A]">Sistem Repetisi Terkalibrasi:</strong> Wali Tahfiz menjaga agar memori hafalan jangka panjang (long-term memory) anak stabil dengan otomatis merotasi ulasan ulas-ulang harian.
+      </p>
+    </div>
+  </div>
+
+  <!-- Right Column: Visualisasi Harakat & Tajwid Kinetik -->
+  <div class="lg:col-span-7 bg-white border border-[#EBE6D9] rounded-[32px] p-6 shadow-sm flex flex-col justify-between text-left">
+    <div class="flex items-center justify-between border-b border-[#F5F3EC] pb-4 mb-4">
+      <div>
+        <span class="text-[9px] font-black text-[#48C78E] uppercase tracking-widest block font-sans">Fitur Mutakhir</span>
+        <h3 class="font-sans text-lg font-black text-[#3A405A] mt-0.5">Visualisasi Harakat & Tajwid Kinetik</h3>
+      </div>
+      <span class="font-sans bg-[#48C78E]/10 text-[#48C78E] text-[9.5px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">Audio Guided</span>
+    </div>
+    <div class="bg-[#FAF8F5] border border-[#EBE6D9]/70 rounded-[24px] p-6 text-center space-y-4 mb-6 relative overflow-hidden">
+      <span class="font-sans absolute -right-10 -bottom-10 text-[100px] text-[#48C78E]/5 select-none pointer-events-none" style="font-family: 'Amiri', serif;">القرآن</span>
+      <div class="font-sans flex items-center justify-between text-[9px] text-[#A39E93] font-black uppercase tracking-wider">
+        <span>Q.S Al-A'laa ayat 17</span>
+        <span class="text-[#48C78E]">Tajwid Berwarna Aktif</span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-800 leading-loose tracking-wide cursor-pointer py-2" style="font-family: 'Amiri', serif;">
+        <span class="text-slate-800 hover:text-[#48C78E] transition-colors">وَالْآخِرَةُ</span> 
+        <span class="text-[#EA4335] font-black hover:scale-105 inline-block transition-transform" title="Mad Wajib: Panjang 5 Harakat">خَيْرٌ</span> 
+        <span class="text-[#48C78E] font-black hover:scale-105 inline-block transition-transform" title="Ikhfa Syafawi">وَأَبْقَى</span>ٰ
+      </h1>
+      <p class="font-sans text-[10px] text-slate-400 font-bold tracking-wide italic">"Sedangkan kehidupan akhirat adalah lebih baik dan lebih kekal."</p>
+    </div>
+    <div class="font-sans border border-[#EBE6D9] p-4 rounded-2xl bg-white space-y-3">
+      <div class="flex items-center justify-between text-[9px] font-black tracking-wider text-slate-400 uppercase">
+        <span>LATIHAN SUARA SAID / AUDIO MINSHAWI</span>
+        <span class="text-amber-600 font-extrabold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span> BERSUARA</span>
+      </div>
+      <div class="h-10 flex items-center justify-center gap-[3px] bg-[#FAF8F5] rounded-xl px-4 border border-dashed border-[#EBE6D9]">
+        <!-- Bar heights transition actively in live state -->
+        <div class="w-[4px] h-3 bg-[#48C78E] rounded-full"></div>
+        <div class="w-[4px] h-7 bg-[#48C78E] rounded-full"></div>
+        <div class="w-[4px] h-5 bg-[#48C78E] rounded-full"></div>
+        <div class="w-[4px] h-8 bg-[#48C78E] rounded-full"></div>
+        <div class="w-[4px] h-4 bg-[#48C78E] rounded-full"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    </textarea>
+
+  </div>
+
+  <!-- Client-side Interactive Animation Control Script -->
+  <script>
+    let isPlaying = false;
+    
+    function togglePreviewPlayback() {
+      const box = document.getElementById("waveBox");
+      const playIcon = document.getElementById("playIcon");
+      const playLabel = document.getElementById("playLabel");
+      const playerState = document.getElementById("playerState");
+      
+      isPlaying = !isPlaying;
+      
+      if (isPlaying) {
+        box.classList.add("dancing");
+        playIcon.textContent = "⏹️";
+        playLabel.textContent = "Hentikan Simulasi Audio";
+        playerState.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> 🟢 AKTIF & BERBUNYI`;
+        playerState.className = "text-emerald-600 font-extrabold flex items-center gap-1 animate-pulse";
+      } else {
+        box.classList.remove("dancing");
+        playIcon.textContent = "▶️";
+        playLabel.textContent = "Simulasi Suara & Ketukan Tajwid";
+        playerState.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span> BERHENTI / PAUSED`;
+        playerState.className = "text-amber-600 font-extrabold flex items-center gap-1";
+      }
+    }
+
+    function copyLandingCode() {
+      const copyText = document.getElementById("rawCodeSource");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+      navigator.clipboard.writeText(copyText.value);
+      
+      const copyBtn = document.getElementById("copyBtn");
+      copyBtn.innerHTML = "✓ BERHASIL DISALIN!";
+      copyBtn.style.backgroundColor = "#3ebe82";
+      
+      setTimeout(() => {
+        copyBtn.innerHTML = "📋 Salin Kode UI";
+        copyBtn.style.backgroundColor = "#48C78E";
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

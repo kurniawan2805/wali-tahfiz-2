@@ -1,0 +1,28 @@
+{
+  "name": "Wali Tahfiz - Kebun Murojaah & Spaced Repetition",
+  "short_name": "Wali Tahfiz",
+  "description": "Aplikasi pendamping hafalan Al-Qur'an dan murojaah berkala terpadu berkemampuan Spaced Repetition untuk anak & balita.",
+  "categories": ["education", "games"],
+  "lang": "id",
+  "dir": "ltr",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FDFBF7",
+  "theme_color": "#48C78E",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Wali Tahfiz - Kebun Murojaah & Spaced Repetition</title>
+
+    <!-- PWA primary meta and linkages -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#48C78E" />
+
+    <!-- Mobile web app capabilities for perfect standalone rendering -->
+    <link rel="apple-touch-icon" href="/icons/icon.svg" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Wali Tahfiz" />
+
+    <!-- FontAwesome 6 CDN for premium icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Reliable, lightweight Service Worker registration script -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('Wali Tahfiz Service Worker active on scope:', registration.scope);
+            })
+            .catch((error) => {
+              console.warn('Wali Tahfiz Service Worker failed to register:', error);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
+
